@@ -1,0 +1,29 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>TCP网络通讯协议 | Tiddster</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><meta name="generator" content="Hexo 5.4.0"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">Tiddster</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>TCP网络通讯协议</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2021-10-13</div></div></div><article><div class="container post"><h2 id="一、TCP-IP网络通讯协议"><a href="#一、TCP-IP网络通讯协议" class="headerlink" title="一、TCP/IP网络通讯协议"></a>一、TCP/IP网络通讯协议</h2><p>应用最广泛的是TCP/IP协议(Transmission Control Protocal/Internet Protoal传输控制协议/英特网互联协议)TCP/IP传输协议对互联网中各部分进行通信的标准和方法进行了规定。并且，TCP/IP传输协议是保证网络数据信息及时、完整传输的两个重要的协议。</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/07/1e1cb281234b609a.png"></p>
+<p>上图中，TCP/IP协议中的四层分别是应用层、传输层、网络层和链路层，每层分别负责不同的通信功能。</p>
+<ul>
+<li>链路层：链路层是用于定义物理传输通道，通常是对某些网络连接设备的驱动协议。</li>
+<li>网络层：网络层是整个TCP/IP协议的核心，它主要用于将传输的数据进行分组，将分组数据发送到目标计算机或者网络。</li>
+<li>传输层：使用平台和计算机信息网内部数据结合的通道，可以实现数据传输与数据共享</li>
+<li>应用层：是用来接收来自传输层的数据或者将数据传输至传输层，例如HTTP协议、FTP协议等。</li>
+</ul>
+<h2 id="二、三次握手"><a href="#二、三次握手" class="headerlink" title="二、三次握手"></a>二、三次握手</h2><p><img src="https://ftp.bmp.ovh/imgs/2021/07/0c6e9624d9e8063c.jpg"></p>
+<ul>
+<li>第一次握手：客户端发送SYN包（是一种简单的数据包，表明一代计算机已经锁好了会话准备）</li>
+<li>第二次握手：服务器收到并确认来自SYN包，同时自己也发送一个SYN包</li>
+<li>第三次握手：客户端收到服务器的包，最后发送一个确认包，然后客户端和服务器进入ESTABLISHED状态。握手完成后，两台主机开始传输数据了。</li>
+</ul>
+<p>注意：SYN包里面不含任何数据！三次握手之后才开始正式传输。理想状态下，TCP连接一旦建立，在通信双方中的任何一方主动关闭连接之前，TCP 连接都将被一直保持下去。</p>
+<h2 id="三、四次挥手"><a href="#三、四次挥手" class="headerlink" title="三、四次挥手"></a>三、四次挥手</h2><p>TCP连接是双全工的（交换机在发送数据的同时也能够接收数据，它采用点对点连接），每一个方向都要单独进行关闭</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/07/b46c90ce49e757e0.webp"></p>
+<ul>
+<li>第一次挥手：客户端发送一个FIN包，来关闭客户端到服务器的数据传送，客户端进入等待状态。</li>
+<li>第二次挥手：服务器收到FIN包，发送ACK字符，进入等待关闭状态。</li>
+<li>第三次挥手：服务器发送FIN包，用来关闭服务器到客户端的数据传输。</li>
+<li>第四次挥手：客户端发送ACK字符，确认收到了字符序列号，服务器进入关闭状态</li>
+</ul>
+<h2 id="四、为什么是三次建立，四次关闭"><a href="#四、为什么是三次建立，四次关闭" class="headerlink" title="四、为什么是三次建立，四次关闭"></a>四、为什么是三次建立，四次关闭</h2><p>这是因为服务端在LISTEN状态下，收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端。而关闭连接时，当收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，己方是否现在关闭发送数据通道，需要上层应用来决定，因此，己方ACK和FIN一般都会分开发送。</p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="https://github.com/https://github.com/tiddster" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2021 <a href="/" rel="nofollow">Tiddster</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>
